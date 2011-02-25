@@ -5,6 +5,7 @@
 
 (ns com.semperos.util-clj.core)
 
+; Thanks to TJoC
 (defmethod print-method clojure.lang.PersistentQueue
   [q w]
   (print-method '<- w)
