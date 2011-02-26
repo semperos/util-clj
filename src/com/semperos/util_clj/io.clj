@@ -15,7 +15,7 @@
 
 (defn fetch-url-data
   "Fetch binary data at the given url"
-  [url]
+  [url out-file]
   (let  [con    (-> url java.net.URL. .openConnection)
          fields (reduce (fn [h v]
                           (assoc h (.getKey v) (into [] (.getValue v))))
@@ -23,7 +23,7 @@
          size   (first (fields "Content-Length"))
          in     (java.io.BufferedInputStream. (.getInputStream con))
          out    (java.io.BufferedOutputStream.
-                 (java.io.FileOutputStream. "out.file"))
+                 (java.io.FileOutputStream. out-file))
          buffer (make-array Byte/TYPE 1024)]
     (loop [g (.read in buffer)
            r 0]
