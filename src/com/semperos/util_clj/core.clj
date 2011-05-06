@@ -6,6 +6,12 @@
 (ns com.semperos.util-clj.core
   (:use [clojure.contrib.duck-streams :only [with-out-writer]]))
 
+(defmacro when-present
+  "Special `when` macro for checking if an attribute isn't available or is an empty string"
+  [obj & body]
+  `(when (not (or (nil? ~obj) (empty? ~obj)))
+     ~@body))
+
 ;; Thanks to TJoC
 (defmethod print-method clojure.lang.PersistentQueue
   [q w]
